@@ -6,6 +6,7 @@ x = 2.5
 # вычислите и выведите y
 
 print("Задание-1")
+
 member_list = equation.split(' ')
 par = float(member_list[2][:len(member_list[2]) - 1])
 displ = float(member_list[len(member_list) - 1])
