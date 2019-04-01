@@ -28,9 +28,7 @@ print("\nЗадание №2_01")
 first_list = ["hi", "you", "we", 2, 34, 15, "we", 2, "we", 2]
 second_list = ["yes", "no", "we", 2, 3, 65]
 
-first_set = set(first_list)
-second_set = set(second_list)
-first_list = list(first_set - second_set)
+first_list = list(set(first_list) - set(second_list))
 print(f"{first_list}\n")
 
 print("Задание №2_02")
