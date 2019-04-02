@@ -48,7 +48,7 @@ def my_round_02(number, ndigits):
     dot_pos = source_str.find('.')
     if dot_pos < ndigits:
         destination_list = list(source_str[:ndigits + 1])
-    else: 
+    else:
         destination_list = list(source_str[:ndigits])
     if dot_pos <= ndigits:
         disp = ndigits + 1
@@ -57,15 +57,15 @@ def my_round_02(number, ndigits):
     if int(source_str[disp]) > 4:
         if int(destination_list[- 1]) + 1 > 9:
             destination_list[- 1] = '0'
-            for ind in range(len(destination_list) - 2, 0, -1):    # обоаботка переносов
+            for ind in range(len(destination_list) - 2, 0, -1):  # обоаботка переносов
                 if destination_list[ind] != '.':
                     if int(destination_list[ind]) + 1 > 9:
                         destination_list[ind] = '0'
                     else:
-                        destination_list[ind]  = str(int(destination_list[ind]) + 1)
+                        destination_list[ind] = str(int(destination_list[ind]) + 1)
                         break
         else:
-            destination_list[- 1] = str(int(destination_list[- 1]) + 1)        
+            destination_list[- 1] = str(int(destination_list[- 1]) + 1)
     grad = dot_pos - ndigits
     if grad > 0:
         for _ in range(0, grad):
@@ -100,7 +100,7 @@ def my_round_03(number, ndigits):
         ite = ndigits + 1
     if int(source_str[ite]) > 4:
         number += 10 ** grad
-    source_str = str(number)    # нужна компенсация возможного сдвига позиции точки
+    source_str = str(number)  # нужна компенсация возможного сдвига позиции точки
     if dot_pos < ndigits:
         destination_float = float(source_str[:ndigits + 1])
     else:
@@ -159,7 +159,6 @@ print(max_of_three(3, 1, 5))
 # Создайте функцию, принимающую неограниченное количество строковых аргументов,
 # верните самую длинную строку из полученных аргументов
 
-
 print("\nЗадание - 4")
 
 
@@ -169,5 +168,6 @@ def less_of_str(*args):
         if len(destination_str) < len(ind):
             destination_str = ind
     return destination_str
+
 
 print(less_of_str("123", "12345", "123456789", "123456", "1234", "12345678"))
