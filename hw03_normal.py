@@ -15,17 +15,18 @@ print("\nЗадание - 1\n")
 
 import os
 
-name_list = ["Алексей", "Иван", "Пётр", "Николай", "Александр", "Кирилл"]
-salary_list = [45000, 55000, 75000, 63000, 115000, 50000]
+name_list = ["Алексй", "Иван", "Пётр", "Николай", "Александр", "Кирилл"]
+salary_list = [150000, 250000, 750000, 330000, 700000, 500000]
 
 dir = os.curdir
-path = os.path.join(dir, "salary_table.txt")
+path = os.path.join(dir, "salary.txt")
 
-with open(path , 'a' , encoding = 'UTF-8') as file_salary:
+with open(path , 'w' , encoding = 'UTF-8') as file_salary:
     for ind_name, ind_salary in dict(zip(name_list, salary_list)).items():
         file_salary.write(f"{ind_name} - {ind_salary}\n")
 
 with open(path , 'r' , encoding = 'UTF-8') as file_salary:
     for line in file_salary:
         val_list = line.split(' ')
-        print(f"{val_list[0].upper()} - {float(val_list[2])}\n")
+        if float(val_list[2]) <= 500000:
+            print(f"{val_list[0].upper()} - {float(val_list[2]) * 0.87}")
