@@ -28,8 +28,8 @@ enemy = {"name": name_inp, "health": 100, "damage": 20}
 
 while player["health"] > 0 and enemy["health"] > 0:
     player, enemy = attack(player, enemy)
-    print(f"{player['name']} сразился с {enemy['name']}! Здоровье {player['name']}: {player['health']}. "
-        f"Здоровье {enemy['name']}: {enemy['health']}")
+    print(f"{player['name']} атаковал {enemy['name']}! Здоровье {player['name']}: {player['health']}. "
+          f"Здоровье {enemy['name']}: {enemy['health']}")
 if player['health'] > 0:
     print(f"{player['name']} - победил! :)")
 else:
@@ -49,6 +49,25 @@ else:
 
 print("\nЗадание - 2\n")
 
+import os
+
+
+def save_person_file(**person):
+    dir = os.curdir
+    path = os.path.join(dir, person["name"] + ".txt")
+    file_person = open(path, 'w', encoding='UTF-8')
+    file_person.write(str(person))
+    file_person.close()
+
+
+def read_person_file(name):
+    dir = os.curdir
+    path = os.path.join(dir, name + ".txt")
+    file_person = open(path, 'r', encoding='UTF-8')
+    str_person = file_person.readline()
+    file_person.close()
+    return eval(str_person)
+
 
 def damage(person):
     return person["damage"] * random.randrange(70 + person["luck"] * 10, 110 + person["luck"] * 10, 10) / 100
@@ -61,14 +80,19 @@ def attack(person1, person2):
 
 
 name_inp = input("В ведите имя игрока: ")
-player = {"name": name_inp, "health": 100, "damage": 20, "armor": 1, "luck": 3}
+# player = {"name": name_inp, "health": 100, "damage": 20, "armor": 1, "luck": 3}
+save_person_file(name=name_inp, health=100, damage=20, armor=1, luck=3)
+player = read_person_file(name_inp)
+
 name_inp = input("Введите имя противника: ")
-enemy = {"name": name_inp, "health": 100, "damage": 20, "armor": 1.3, "luck": 0}
+# enemy = {"name": name_inp, "health": 100, "damage": 20, "armor": 1.3, "luck": 0}
+save_person_file(name=name_inp, health=100, damage=20, armor=1.3, luck=0)
+enemy = read_person_file(name_inp)
 
 while player["health"] > 0 and enemy["health"] > 0:
     player, enemy = attack(player, enemy)
-    print(f"{player['name']} сразился с {enemy['name']}! Здоровье {player['name']}: {round(player['health'], 2)}. "
-        f"Здоровье {enemy['name']}: {round(enemy['health'], 2)}")
+    print(f"{player['name']} атаковал {enemy['name']}! Здоровье {player['name']}: {round(player['health'], 2)}. "
+          f"Здоровье {enemy['name']}: {round(enemy['health'], 2)}")
 if player['health'] > 0:
     print(f"{player['name']} - победил! :)")
 else:
