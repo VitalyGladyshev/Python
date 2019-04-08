@@ -19,9 +19,9 @@ def get_card_number():
     if card_number.isdigit() and len(card_number) == 16:
         try:
             card_number = int(card_number)
-            return card_number
         except Exception:
             return False
+        return card_number
     return False
 
 
@@ -37,10 +37,10 @@ def get_pin_code(person):
     if pin_code.isdigit() and len(pin_code) == 4:
         try:
             pin_code = int(pin_code)
-            if person['pin'] == pin_code:
-                return True
         except Exception:
             return False
+        if person['pin'] == pin_code:
+            return True
     return False
 
 
