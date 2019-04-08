@@ -14,15 +14,33 @@ person3 = {'card': 4276123465440002, 'pin': 9092, 'money': 300.90}
 bank = [person1, person2, person3]
 
 
+def get_card_number():
+    card_number = input('\nВведите номер карты: ')
+    if card_number.isdigit() and len(card_number) == 16:
+        try:
+            card_number = int(card_number)
+            return card_number
+        except Exception:
+            return False
+    return False
+
+
 def get_person_by_card(card_number):
     for person in bank:
         if person['card'] == card_number:
             return person
+    return False
 
 
-def is_pin_valid(person, pin_code):
-    if person['pin'] == pin_code:
-        return True
+def get_pin_code(person):
+    pin_code = input('Введите пин код: ')
+    if pin_code.isdigit() and len(pin_code) == 4:
+        try:
+            pin_code = int(pin_code)
+            if person['pin'] == pin_code:
+                return True
+        except Exception:
+            return False
     return False
 
 
@@ -31,7 +49,7 @@ def check_account(person):
 
 
 def withdraw_money(person, money):
-    if person['money'] - money == 0:
+    if person['money'] >= money:
         person['money'] -= money
         return 'Вы сняли {} рублей.'.format(money)
     else:
@@ -42,28 +60,44 @@ def process_user_choice(choice, person):
     if choice == '1':
         print(check_account(person))
     elif choice == '2':
-        count = float(input('Сумма к снятию:'))
+        count = input('Сумма к снятию:')
+        try:
+            count = float(count)
+        except Exception:
+            return False
+        if count%1 > 0.99:
+            return False
         print(withdraw_money(person, count))
+    return True
 
 
 def start():
-    card_number, pin_code = input('Введите номер карты и пин код через пробел:').split()
+    while True:
+        card_number = get_card_number()
+        if card_number:
+            person = get_person_by_card(card_number)
+            if person:
+                while True:
+                    choice = input('\nВыберите пункт:\n'
+                        '1. Проверить баланс\n'
+                        '2. Снять деньги\n'
+                        '3. Выход\n'
+                        '--------------------\n'
+                        'Ваш выбор:')
+                    if choice == '3':
+                        break
+                    elif choice == '1' or choice == '2':
+                        if get_pin_code(person):
+                            if not process_user_choice(choice, person):
+                                print("Некорректно введена сумма")
+                        else:
+                            print("Неправильно введён пин код")
+                    else:
+                        print("Укажите корректный пункт меню")                    
+            else:
+                print("Номер карты отсутствует в списке")
+        else:
+            print("Неправильно введён номер карты")
 
-    card_number = int(card_number)
-    pin_code = int(pin_code)
-    person = get_person_by_card(card_number)
-    if person and is_pin_valid(person, pin_code):
-        while True:
-            choice = int(input('Выберите пункт:\n'
-                               '1. Проверить баланс\n'
-                               '2. Снять деньги\n'
-                               '3. Выход\n'
-                               '---------------------\n'
-                               'Ваш выбор:'))
-            if choice == 3:
-                break
-            process_user_choice(choice, person)
-    else:
-        print('Номер карты или пин код введены не верно!')
 
 start()
