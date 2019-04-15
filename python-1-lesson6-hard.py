@@ -57,8 +57,8 @@ class Order:
             self.__toy_type = False
     
     def next_phase(self):
-        Order.phase += 1
-        self.__phase_datetime_dict[Order.phase] = datetime.datetime.now()
+        Order.__phase += 1
+        self.__phase_datetime_dict[Order.__phase] = datetime.datetime.now()
         # действие: Заказ материалов, Пошив, Покраска, Упаковка, Хранение, Отгрузка
 
     def get_order_status(self):
